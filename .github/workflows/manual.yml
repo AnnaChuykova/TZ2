@@ -1,20 +1,14 @@
 name: Manual workflow
-on:
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
-  workflow_dispatch:
-    
-    inputs:
-      name:
-        description: 'Test blank'
-        default: 'Test'
-        required: true
-        type: string
+on: [push]
 jobs:
-  test:
+  build:
     runs-on: windows-2019
     steps:
-    - name: Testing program
-      run: npm verify
+      - name: check out code
+      - uses: actions/checkout@v1
+      - name: set up JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.11
+      - name: Maven Verify
+        run: mvn -B clean verify
