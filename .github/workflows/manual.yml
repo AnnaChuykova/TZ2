@@ -1,0 +1,20 @@
+name: Manual workflow
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+  workflow_dispatch:
+    
+    inputs:
+      name:
+        description: 'Test blank'
+        default: 'Test'
+        required: true
+        type: string
+jobs:
+  test:
+    runs-on: windows-2019
+    steps:
+    - name: Testing program
+      run: npm verify
